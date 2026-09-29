@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  background: #f4f9ff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  color: #1f2a37;
+}
+
+.container {
+  width: 100%;
+  max-width: 360px;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 48px 32px 36px;
+  box-shadow:
+    0 20px 40px -20px rgba(120, 170, 230, 0.25),
+    0 2px 6px rgba(120, 170, 230, 0.08);
+  border: 1px solid #eef5fd;
+  text-align: center;
+}
+
+/* TÍTULO */
+header h1 {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  color: #3b82c4;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+/* CONTEÚDO */
+.conteudo h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2a37;
+  margin-bottom: 8px;
+  letter-spacing: -0.2px;
+}
+
+.conteudo p {
+  font-size: 13.5px;
+  color: #8a97a8;
+  line-height: 1.6;
+  margin-bottom: 38px;
+}
+
+/* BOTÕES */
+.acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-principal,
+.btn-secundario {
+  width: 100%;
+  padding: 15px;
+  border-radius: 999px; /* totalmente arredondado */
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: none;
+}
+
+.btn-principal {
+  background: #cfe6fb;
+  color: #1f4e79;
+  box-shadow: 0 6px 16px -6px rgba(59, 130, 196, 0.45);
+}
+
+.btn-principal:hover {
+  background: #b8daf7;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px -8px rgba(59, 130, 196, 0.55);
+}
+
+.btn-principal:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px -4px rgba(59, 130, 196, 0.45);
+}
+
+.btn-secundario {
+  background: transparent;
+  color: #3b82c4;
+  border: 1.5px solid #d6e7f8;
+}
+
+.btn-secundario:hover {
+  background: #f4f9ff;
+  border-color: #b8daf7;
+  transform: translateY(-1px);
+}
+
+.btn-secundario:active {
+  transform: translateY(0);
+}
+
+/* RODAPÉ */
+footer {
+  margin-top: 40px;
+}
+
+footer small {
+  font-size: 11px;
+  color: #b9c5d3;
+  letter-spacing: 0.6px;
+}
