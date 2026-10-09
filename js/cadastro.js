@@ -1,119 +1,61 @@
-/* ============================================
-   CADASTRO (cadastro.html)
-   ============================================ */
 const formCadastro = document.getElementById('formCadastro');
+const dataNascimentoInput = document.getElementById('dataNascimento');
+const blocoResponsavel = document.getElementById('blocoResponsavel');
+
+function calcularIdade(dataNascimento) {
+  const hoje = new Date();
+  const nasc = new Date(dataNascimento);
+  let idade = hoje.getFullYear() - nasc.getFullYear();
+  const mes = hoje.getMonth() - nasc.getMonth();
+  if (mes < 0 || (mes === 0 && hoje.getDate() < nasc.getDate())) {
+    idade--;
+  }
+  return idade;
+}
+
+// mostra ou esconde o campo do responsavel baseado na idade
+if (dataNascimentoInput) {
+  dataNascimentoInput.addEventListener('change', (e) => {
+    const idade = calcularIdade(e.target.value);
+    if (idade < 18) {
+      blocoResponsavel.style.display = 'flex';
+      document.getElementById('emailResponsavel').required = true;
+    } else {
+      blocoResponsavel.style.display = 'none';
+      document.getElementById('emailResponsavel').required = false;
+      document.getElementById('emailResponsavel').value = '';
+    }
+  });
+}
 
 if (formCadastro) {
-  formCadastro.addEventListener('submit', (e) => {
+  formCadastro.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const nome = document.getElementById('nome').value.trim();
     const email = document.getElementById('email').value.trim().toLowerCase();
     const senha = document.getElementById('senha').value;
     const dataNascimento = document.getElementById('dataNascimento').value;
+    const emailResponsavel = document.getElementById('emailResponsavel').value.trim().toLowerCase();
+    const consentimentoGeo = document.getElementById('consentimentoGeo').checked ? 1 : 0;
 
-    if (!nome || !email || !senha || !dataNascimento) {
-      alert('Preencha todos os campos.');
-      return;
-    }
+    try {
+      const resposta = await axios.post('http://localhost:3000/cadastro', {
+        nome,
+        email,
+        senha,
+        dataNascimento,
+        emailResponsavel: emailResponsavel || null,
+        consentimentoGeo
+      });
 
-    const idade = calcularIdade(dataNascimento);
-    if (idade < 18) {
-      alert('Você precisa ter 18 anos ou mais para criar viagens solo. (RN01)');
-      return;
-    }
-
-    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
-    const jaExiste = usuarios.find((u) => u.email === email);
-
-    if (jaExiste) {
-      alert('Este e-mail já está cadastrado.');
-      return;
-    }
-
-    usuarios.push({ nome, email, senha, dataNascimento });
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-
-    alert('Cadastro realizado com sucesso! Faça login.');
-    window.location.href = 'login.html';
-  });
-}
-
-/* ============================================
-   LOGIN (login.html)
-   ============================================ */
-const formLogin = document.getElementById('formLogin');
-
-if (formLogin) {
-  formLogin.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById('email').value.trim().toLowerCase();
-    const senha = document.getElementById('senha').value;
-
-    if (!email || !senha) {
-      alert('Preencha todos os campos.');
-      return;
-    }
-
-    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
-    console.log('Usuários cadastrados:', usuarios);
-    console.log('Tentando logar com:', { email, senha });
-
-    const usuario = usuarios.find(
-      (u) => u.email === email && u.senha === senha
-    );
-
-    if (!usuario) {
-      alert('E-mail ou senha incorretos. Verifique ou crie uma conta.');
-      return;
-    }
-
-    localStorage.setItem('usuarioLogado', usuario.email);
-    alert(`Bem-vindo(a), ${usuario.nome}!`);
-    window.location.href = 'index.html';
-  });
-}
-
-/* ============================================
-   HOME (index.html)
-   ============================================ */
-const btnEntrar = document.getElementById('btnEntrar');
-const btnCriarViagem = document.getElementById('btnCriarViagem');
-
-if (btnEntrar) {
-  btnEntrar.addEventListener('click', () => {
-    window.location.href = 'login.html';
-  });
-}
-
-if (btnCriarViagem) {
-  btnCriarViagem.addEventListener('click', () => {
-    const usuarioLogado = localStorage.getItem('usuarioLogado');
-
-    if (!usuarioLogado) {
-      alert('Você precisa estar logado para criar uma viagem. (RF01)');
+      alert(resposta.data.mensagem || 'cadastro realizado com sucesso!');
       window.location.href = 'login.html';
-      return;
+
+    } catch (erro) {
+      console.error('erro ao cadastrar:', erro);
+      const msgErro = erro.response?.data?.erro || 'erro ao conectar com o servidor.';
+      alert(msgErro);
     }
-
-    alert('Criar viagem — em breve (RF02)');
   });
-}
-
-/* ============================================
-   UTILITÁRIO
-   ============================================ */
-function calcularIdade(dataNascimento) {
-  const hoje = new Date();
-  const nasc = new Date(dataNascimento);
-
-  let idade = hoje.getFullYear() - nasc.getFullYear();
-  const mes = hoje.getMonth() - nasc.getMonth();
-
-  if (mes < 0 || (mes === 0 && hoje.getDate() < nasc.getDate())) {
-    idade--;
-  }
-
-  return idade;
 }

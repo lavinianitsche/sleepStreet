@@ -25,6 +25,15 @@
       <input type="password" id="senha" placeholder="Senha" required />
       <input type="date" id="dataNascimento" required />
 
+      <div id="blocoResponsavel" style="display: none; flex-direction: column; width: 100%;">
+        <input type="email" id="emailResponsavel" placeholder="E-mail do responsável legal" />
+      </div>
+
+      <label class="checkbox-container">
+        <input type="checkbox" id="consentimentoGeo" />
+        <span>autorizo o uso da minha localização geográfica para buscar locais próximos.</span>
+      </label>
+
       <button type="submit" class="btn-principal">Cadastrar</button>
     </form>
 
@@ -39,6 +48,7 @@
 
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="js/cadastro.js"></script>
 </body>
 </html>

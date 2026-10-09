@@ -1,26 +1,27 @@
 const formLogin = document.getElementById('formLogin');
 
 if (formLogin) {
-  formLogin.addEventListener('submit', (e) => {
+  formLogin.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const email = document.getElementById('email').value.trim().toLowerCase();
     const senha = document.getElementById('senha').value;
 
-    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
-    console.log('Cadastrados:', usuarios);
+    try {
+      const resposta = await axios.post('http://localhost:3000/login', {
+        email,
+        senha
+      });
 
-    const usuario = usuarios.find(
-      (u) => u.email === email && u.senha === senha
-    );
+      alert(`Bem-vindo(a), ${resposta.data.usuario.nome}!`);
+      
+      localStorage.setItem('usuarioLogado', resposta.data.usuario.email);
+      window.location.href = 'inicio.html';
 
-    if (!usuario) {
-      alert('E-mail ou senha incorretos. Verifique ou crie uma conta.');
-      return;
+    } catch (erro) {
+      console.error('Erro ao logar:', erro);
+      const msgErro = erro.response?.data?.erro || 'E-mail ou senha incorretos.';
+      alert(msgErro);
     }
-
-    localStorage.setItem('usuarioLogado', usuario.email);
-    alert('Bem-vindo(a), ' + usuario.nome + '!');
-    window.location.href = 'index.html';
   });
 }
