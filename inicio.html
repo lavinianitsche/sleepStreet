@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sleep Street · Painel</title>
+  <link rel="stylesheet" href="css/inicio.css" />
+</head>
+<body>
+
+  <div class="app-layout">
+    <!-- Menu Lateral -->
+    <aside class="sidebar">
+      <div class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+        Sleep Street
+      </div>
+      
+      <nav class="menu">
+        <a href="#" class="ativo">Início</a>
+        <a href="#">Minhas Viagens</a>
+        <a href="#">Despesas</a>
+        <a href="#">Checklist</a>
+        <a href="#">Reembolsos</a>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="conteudo">
+      
+      <!-- Cabeçalho -->
+      <header class="topo">
+        <div>
+          <p class="saudacao">Bem-vindo de volta,</p>
+          <h1 id="nomeUsuario">Carregando...</h1>
+        </div>
+        <button class="btn-perfil">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </button>
+      </header>
+
+      <!-- Área de Grid -->
+      <div class="grid-dashboard">
+        
+        <!-- Coluna Esquerda (Viagem e Despesas) -->
+        <div class="coluna-esquerda">
+          
+          <!-- Card de Viagem Ativa -->
+          <section id="cardViagem" class="card card-viagem oculto">
+            <div class="card-header">
+              <div>
+                <span class="tag">Viagem Ativa</span>
+                <h2 id="destinoViagem">—</h2>
+                <p id="periodoViagem" class="subtitulo">—</p>
+              </div>
+            </div>
+            <div class="orcamento">
+              <div class="valores">
+                <div><span class="label">Orçamento</span><strong id="tetoOrcamento">R$ 0,00</strong></div>
+                <div><span class="label">Gasto</span><strong id="gastoOrcamento">R$ 0,00</strong></div>
+              </div>
+              <div class="barra-progresso">
+                <div id="barraProgresso" class="progresso" style="width: 0%"></div>
+              </div>
+              <p id="saldoOrcamento" class="saldo">Saldo: R$ 0,00</p>
+            </div>
+          </section>
+
+          <!-- Estado Vazio -->
+          <section id="estadoVazio" class="card card-vazio oculto">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+            <h3>Nenhuma viagem planejada</h3>
+            <p>Você ainda não tem uma viagem ativa. Que tal começar a planejar a próxima?</p>
+            <button class="btn-principal">Criar nova viagem</button>
+          </section>
+
+          <!-- Despesas Recentes -->
+          <section class="card">
+            <h3>Despesas Recentes</h3>
+            <ul id="listaDespesas" class="lista-despesas"></ul>
+            <p id="semDespesas" class="vazio-texto oculto">Nenhuma despesa registrada nesta viagem.</p>
+          </section>
+
+        </div>
+
+        <!-- Coluna Direita (Atalhos Rápidos) -->
+        <div class="coluna-direita">
+          <section class="card card-atalhos">
+            <h3>Ações Rápidas</h3>
+            <div class="grade-atalhos">
+              <!-- Atalho 1 -->
+              <button class="atalho" data-rota="busca">
+                <div class="icone-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+                <span>Buscar Locais</span>
+              </button>
+              <!-- Atalho 2 -->
+              <button class="atalho" data-rota="despesa">
+                <div class="icone-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+                <span>Add Despesa</span>
+              </button>
+              <!-- Atalho 3 -->
+              <button class="atalho" data-rota="avaliar">
+                <div class="icone-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+                <span>Avaliar Local</span>
+              </button>
+              <!-- Atalho 4 -->
+              <button class="atalho" data-rota="checklist">
+                <div class="icone-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+                <span>Checklist <em id="checklistPct">0%</em></span>
+              </button>
+              <!-- Atalho 5 -->
+              <button class="atalho" data-rota="reembolso">
+                <div class="icone-box"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div>
+                <span>Reembolsos <em id="badgeReembolso">0</em></span>
+              </button>
+            </div>
+          </section>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Aviso Menor de Idade -->
+  <p id="avisoMenor" class="aviso oculto">Atenção: É necessário vínculo com um responsável legal para criar viagens solo.</p>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="js/inicio.js"></script>
+</body>
+</html>

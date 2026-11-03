@@ -19,7 +19,7 @@ if (formLogin) {
       window.location.href = 'inicio.html';
 
     } catch (erro) {
-      console.error('Erro ao logar:', erro);
+      console.error('erro ao logar:', erro);
       const msgErro = erro.response?.data?.erro || 'E-mail ou senha incorretos.';
       alert(msgErro);
     }
