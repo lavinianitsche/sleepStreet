@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sleep Street</title>
+  <link rel="stylesheet" href="css/estabelecimento.css"/>
+</head>
+<body>
+
+  <main class="container">
+
+    <header>
+      <h1>sleep street</h1>
+    </header>
+
+    <section class="conteudo">
+      <h2>Estabelecimentos</h2>
+      <p>Busque restaurantes, mercados, hospedagens e atrações por faixa de preço.</p>
+    </section>
+
+    <section class="acoes">
+      <select id="filtroCategoria" class="campo-filtro">
+        <option value="">Todas as categorias</option>
+        <option value="restaurante">Restaurante</option>
+        <option value="mercado">Mercado</option>
+        <option value="hospedagem">Hospedagem</option>
+        <option value="atracao">Atração</option>
+      </select>
+
+      <select id="filtroFaixaPreco" class="campo-filtro">
+        <option value="">Todas as faixas de preço</option>
+        <option value="economico">Econômico</option>
+        <option value="moderado">Moderado</option>
+        <option value="alto">Alto</option>
+      </select>
+
+      <button id="btnBuscar" class="btn-principal">Buscar Estabelecimentos</button>
+    </section>
+
+    <section id="listaEstabelecimentos" class="lista-resultados"></section>
+
+    <footer>
+      <small>Sleep Street</small>
+    </footer>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="js/estabelecimento.js"></script>
+</body>
+</html>
